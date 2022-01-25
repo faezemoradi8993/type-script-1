@@ -1,36 +1,46 @@
 import React, { useState } from "react";
+import { IState as Props } from "./../../App";
 interface IProps {
-    setPeople : React.Dispatch<React.SetStateAction<{
-        name: string;
-        age: number;
-        image: string;
-        note?: string;
-    }[]>>;
-    people:{
-        name: string;
-        age: number;
-        image: string;
-        note?: string;
-    }[];
-
+  setPeople: React.Dispatch<React.SetStateAction<Props["people"]>>;
+  people: Props["people"];
 }
 interface IState {
-    input:{
-        name: string;
-        age: number;
-        image: string;
-        note?: string;
-    };
+  input: {
+    name: string;
+    age: number;
+    image: string;
+    note?: string;
+  };
 }
 
-const AddPeople:React.FC<IProps>=({people,setPeople})=> {
-  [input, setInput] = useState<IState>({});
-  const clickHandler=()=>{
- 
-  }
-  const changeHandler=(e:React.ChangeEvent<HTMLInputElement>):void=>{
- setInput({...input},[e.target.name]:[e.target.value])
-  }
+const AddPeople: React.FC<IProps> = ({ people, setPeople }) => {
+  const [input, setInput] = useState({
+    name: "",
+    age: "",
+    image: "",
+    note: "",
+  });
+  const clickHandler = (): void => {
+    if (!input.name || !input.age || !input.image) {
+      return;
+    }
+    setPeople([
+      ...people,
+      {
+        name: input.name,
+        age: parseInt(input.age),
+        image: input.image,
+        note: input.note,
+      },
+    ]);
+  };
+  const changeHandler = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ): void => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
   return (
     <div className="flex flex-col">
       <input
@@ -41,7 +51,13 @@ const AddPeople:React.FC<IProps>=({people,setPeople})=> {
         value={input?.name}
         name="name"
       />
-      <input type="number" placeholder="Age"   onChange={changeHandler} value={input?.age} name="age" />
+      <input
+        type="number"
+        placeholder="Age"
+        onChange={changeHandler}
+        value={parseInt(input?.age)}
+        name="age"
+      />
       <input
         type="text"
         placeholder="Image URL"
@@ -49,10 +65,15 @@ const AddPeople:React.FC<IProps>=({people,setPeople})=> {
         value={input?.image}
         name="image"
       />
-      <textarea placeholder="Note (optional)"   onChange={changeHandler} value={input?.note} name="note" />
-      <button onClick={(e)=>clickHandler()}>Add</button>
+      <textarea
+        placeholder="Note (optional)"
+        onChange={changeHandler}
+        value={input?.note}
+        name="note"
+      />
+      <button onClick={(e) => clickHandler()}>Add</button>
     </div>
   );
-}
+};
 
 export default AddPeople;
