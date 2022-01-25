@@ -13,7 +13,7 @@ function App() {
     { name: "hasan", age: 10, image: "", note: "hi ali how are yow bro" },
   ]);
   return (
-    <div className="App">
+    <div className="App p-5">
         <List people={people} />
         <AddPeople setPeople={setPeople} people={people}/>
     </div>

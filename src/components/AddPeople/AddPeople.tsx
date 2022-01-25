@@ -4,14 +4,6 @@ interface IProps {
   setPeople: React.Dispatch<React.SetStateAction<Props["people"]>>;
   people: Props["people"];
 }
-interface IState {
-  input: {
-    name: string;
-    age: number;
-    image: string;
-    note?: string;
-  };
-}
 
 const AddPeople: React.FC<IProps> = ({ people, setPeople }) => {
   const [input, setInput] = useState({
@@ -42,9 +34,9 @@ const AddPeople: React.FC<IProps> = ({ people, setPeople }) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center justify-center p-5 shadow-lg mt-4 bg-green-200">
       <input
-        className=""
+        className="w-full bg-green-100 border-2 border-green-300 p-1 my-2 rounded-md active:bg-white "
         type="text"
         placeholder="Name"
         onChange={changeHandler}
@@ -52,6 +44,7 @@ const AddPeople: React.FC<IProps> = ({ people, setPeople }) => {
         name="name"
       />
       <input
+        className="w-full bg-green-100 border-2 border-green-300 p-1 my-2 rounded-md active:bg-white "
         type="number"
         placeholder="Age"
         onChange={changeHandler}
@@ -59,6 +52,7 @@ const AddPeople: React.FC<IProps> = ({ people, setPeople }) => {
         name="age"
       />
       <input
+        className="w-full bg-green-100 border-2 border-green-300 p-1 my-2 rounded-md active:bg-white "
         type="text"
         placeholder="Image URL"
         onChange={changeHandler}
@@ -66,12 +60,13 @@ const AddPeople: React.FC<IProps> = ({ people, setPeople }) => {
         name="image"
       />
       <textarea
+        className="w-full bg-green-100 border-2 border-green-300 p-1 my-2 rounded-md active:bg-white "
         placeholder="Note (optional)"
         onChange={changeHandler}
         value={input?.note}
         name="note"
       />
-      <button onClick={(e) => clickHandler()}>Add</button>
+      <button className="bg-green-400 rounded-lg px-7 py-3 mt-2 hover:shadow-md hover:bg-green-600 text-white" onClick={clickHandler}>Add</button>
     </div>
   );
 };
